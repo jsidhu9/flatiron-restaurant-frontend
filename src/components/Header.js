@@ -1,3 +1,4 @@
+import "./Header.css";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +9,7 @@ function Header() {
         <div className="header-title">
           <h2>Flatiron Restaurant</h2>
         </div>
-        <div className="list">
+        <div className="Navbar">
           <li className="li-child">
             <Link className="li-link" to="/">
               Home
