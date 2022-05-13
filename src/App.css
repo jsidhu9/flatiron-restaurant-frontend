@@ -1,5 +1,14 @@
 .App {
   text-align: center;
+  font-size: 24px;
+font-weight: normal;
+width: auto;
+display: block;
+color: rgba(243, 243, 243, 0.797);
+border-radius: 30px;
+border-color: yellow;
+
+background: linear-gradient(0deg, #000000 0%, #795900 100%);
 }
 
 .App-logo {
