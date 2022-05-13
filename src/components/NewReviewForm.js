@@ -6,14 +6,12 @@ function NewReviewForm({ addNewReview }) {
     content: "",
   };
   const [newReview, setFormData] = useState(blankReview);
-  const { name, content } = newReview;
 
   function handleTitleChange(e) {
     setFormData({
       ...newReview,
       name: e.target.value,
     });
-    console.log(newReview);
   }
 
   function handleContentChange(e) {
@@ -21,7 +19,6 @@ function NewReviewForm({ addNewReview }) {
       ...newReview,
       content: e.target.value,
     });
-    console.log(newReview);
   }
 
   const handleForm = (e) => {

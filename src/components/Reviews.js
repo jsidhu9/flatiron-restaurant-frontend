@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReviewItem from "./ReviewItem";
 import Header from "./Header";
 import NewReviewForm from "./NewReviewForm";
@@ -10,18 +10,14 @@ function Reviews({ reviews, onDeleteReview, addNewReview, changeReview }) {
       <div className="reviews-container">
         <h1 id="review-title">Reviews</h1>
         <div className="reviews">
-          {reviews.map((review) => {
-            return (
-              <>
-                <ReviewItem
-                  key={review.id}
-                  review={review}
-                  onDeleteReview={onDeleteReview}
-                  changeReview={changeReview}
-                />
-              </>
-            );
-          })}
+          {Object.values(reviews).map((review) => (
+            <ReviewItem
+              key={review.id}
+              review={review}
+              onDeleteReview={onDeleteReview}
+              changeReview={changeReview}
+            />
+          ))}
         </div>
       </div>
 

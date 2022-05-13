@@ -7,14 +7,12 @@ function NewMenuForm({ addNewMenuItem }) {
     image: "",
   };
   const [newMenuItem, setFormData] = useState(blankMenuItem);
-  const { name, price, image } = newMenuItem;
 
   function handleTitleChange(e) {
     setFormData({
       ...newMenuItem,
       name: e.target.value,
     });
-    console.log(newMenuItem);
   }
 
   function handleImageChange(e) {
@@ -22,14 +20,12 @@ function NewMenuForm({ addNewMenuItem }) {
       ...newMenuItem,
       image: e.target.value,
     });
-    console.log(newMenuItem);
   }
   function handlePriceChange(e) {
     setFormData({
       ...newMenuItem,
       price: e.target.value,
     });
-    console.log(newMenuItem);
   }
 
   const handleForm = (e) => {

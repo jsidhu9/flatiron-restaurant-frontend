@@ -7,10 +7,8 @@ function Home() {
     <>
       <Header />
       <div className="home">
-        <img id="home-img" src={HomeImg}></img>
-        <p id="home-content">
-          Flatiron Restaurant
-        </p>
+        <img id="home-img" src={HomeImg} alt="home"></img>
+        <p id="home-content">Flatiron Restaurant</p>
       </div>
     </>
   );

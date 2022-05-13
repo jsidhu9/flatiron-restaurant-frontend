@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import Reviews from "./components/Reviews";
 import Home from "./components/Home";
 import Menu from "./components/Menu";
 import React, { useState, useEffect } from "react";
 import Cart from "./components/Cart";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const [menu, setMenu] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState({});
 
   function handleRenderMenu(data) {
     setMenu(data);
   }
 
   function handleRenderReviews(data) {
-    setReviews(data);
-    console.log(data);
+    setReviews(data.reduce((acc, curr) => ({ ...acc, [curr.id]: curr }), {}));
   }
 
   function handleCartClick(id, cart, price) {
@@ -27,31 +25,40 @@ function App() {
   }
 
   function onDeleteReview(id) {
-    const updatedReviews = reviews.filter((review) => review.id !== id);
+    //const updatedReviews = reviews.filter((review) => review.id !== id);
+    const updatedReviews = { ...reviews };
+    delete updatedReviews[id];
     setReviews(updatedReviews);
   }
 
-  function handleChangeReview(changedReview) {
-    const changedReviews = reviews.map((review) => {
-      if (review.id === changedReview.id) {
-        return changedReview;
-      } else {
-        return review;
-      }
-    });
-    setReviews(changedReviews);
-  }
+  // function onChangeReview(changedReview) {
+  //   // const changedReviews = reviews.map((review) => {
+  //   //   if (review.id === changedReview.id) {
+  //   //     return changedReview;
+  //   //   } else {
+  //   //     return review;
+  //   //   }
+  //   // };
+  //   const updatedReviews = { ...reviews };
+  //   updatedReviews[changedReview.id] = changedReview;
+  //   setReviews(updatedReviews);
+  // }
 
-  const addNewReview = (e) => {
-    fetch("http://localhost:9292/reviews", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(e),
-    })
+  const updateReview = (review, method) => {
+    fetch(
+      `http://localhost:9292/reviews${
+        method === "PATCH" ? `/${review.id}` : ""
+      }`,
+      {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(review),
+      }
+    )
       .then((res) => res.json())
-      .then(setReviews([...reviews, e]));
+      .then((data) => setReviews({ ...reviews, [data.id]: data }));
   };
 
   const addNewMenuItem = (e) => {
@@ -100,9 +107,10 @@ function App() {
             element={
               <Reviews
                 reviews={reviews}
-                addNewReview={addNewReview}
+                addNewReview={(review) => updateReview(review, "POST")}
+                changeReview={(review) => updateReview(review, "PATCH")}
                 onDeleteReview={onDeleteReview}
-                changeReview={handleChangeReview}
+                //onChangeReview={onChangeReview}
               />
             }
           />
